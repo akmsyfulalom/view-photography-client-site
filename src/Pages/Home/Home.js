@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Service from '../Service/Service';
 import Header from '../Shared/Header/Header';
 
@@ -28,7 +28,7 @@ const Home = () => {
             </div>
 
             <div className='text-center'>
-                <button className="btn btn-success">See More</button>
+                <Link to="/services"><button className="btn btn-success">See More</button></Link>
             </div>
         </>
     );

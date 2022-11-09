@@ -5,12 +5,16 @@ import Faq from "../../Pages/Faq/Faq";
 import Login from "../../Pages/Login/Login/Login";
 import Services from "../../Pages/Services/Services";
 import Register from "../../Pages/Login/Register/Register"
+import Home from "../../Pages/Home/Home";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
         children: [
+            {
+                path: '/', element: <Home></Home>
+            },
             {
                 path: '/services', element: <Services></Services>
             },

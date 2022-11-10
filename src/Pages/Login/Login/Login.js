@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from "firebase/auth";
@@ -9,6 +9,9 @@ import { GoogleAuthProvider } from "firebase/auth";
 const Login = () => {
     const { userLogin, providerLogin } = useContext(AuthContext)
     const navigate = useNavigate()
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = (event) => {
         event.preventDefault()
@@ -19,8 +22,9 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 form.reset()
-                navigate('/')
+
                 toast.success('Login Success')
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 toast.error(error.message)
@@ -34,7 +38,8 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 toast.success('Login success with Google')
-                navigate('/')
+
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 toast.error(error.message)

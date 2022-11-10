@@ -1,7 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
+import { FaUser } from 'react-icons/fa';
 
 const Header = () => {
+    const { LogOut, user } = useContext(AuthContext);
+
+
+    const handleLogOut = () => {
+        LogOut()
+            .then(() => {
+
+            })
+            .then(error => console.log(error));
+    }
+    const userProfile = () => {
+        <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn m-1">Click</label>
+            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a>Item 1</a></li>
+                <li><a>Item 2</a></li>
+            </ul>
+        </div>
+
+    }
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -27,12 +49,33 @@ const Header = () => {
                         <li><Link to="/faq">FAQ</Link></li>
                     </ul>
                 </div>
-                <div className="navbar-end">
-                    <li className="btn btn-ghost"> <Link to="/login">Login</Link></li>
-                    <li className="btn btn-ghost"><Link to="/register">Register</Link></li>
-                </div>
+                {
+                    user?.uid ? <>
+                        <button onClick={handleLogOut} className="btn btn-ghost">Log Out</button>
+
+                        {
+                            user?.photoURL ? <>
+                                <button onClick={userProfile}> <img className='w-8 h-8 rounded-full' src={user?.photoURL} alt="" />
+                                </button>
+                            </>
+                                :
+                                <>
+                                    <FaUser></FaUser>
+                                </>
+                        }
+
+                    </>
+                        :
+                        <>
+                            <div className="navbar-end">
+                                <li className="btn btn-ghost"> <Link to="/login">Login</Link></li>
+                                <li className="btn btn-ghost"><Link to="/register">Register</Link></li>
+                            </div>
+                        </>
+                }
+
             </div>
-        </div>
+        </div >
     );
 };
 

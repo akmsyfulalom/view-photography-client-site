@@ -7,6 +7,7 @@ import Services from "../../Pages/Services/Services";
 import Register from "../../Pages/Login/Register/Register"
 import Home from "../../Pages/Home/Home";
 import ViewService from "../../Pages/ViewService/ViewService";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -35,8 +36,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/service/:_id',
-                element: <ViewService></ViewService>,
-                // loader: ({ params }) => fetch(`http://localhost:3000/service/${params._id}`)
+                element: <PrivateRoute> <ViewService></ViewService>,</PrivateRoute>,
+                loader: ({ params }) => fetch(`http://localhost:3000/service/${params._id}`)
             },
 
 

@@ -5,6 +5,8 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { FaUser } from 'react-icons/fa';
 import Reviews from './Reviews';
 import toast from 'react-hot-toast';
+import 'react-photo-view/dist/react-photo-view.css';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 
 
@@ -51,23 +53,25 @@ const ViewService = () => {
 
     return (
         <div className='container mx-auto grid grid-cols-3 gap-4 py-20'>
-            <div className='col-span-2 w-full'>
-                <div className="card w-full bg-base-100 shadow-xl">
-                    <img src={service_image} alt="Shoes" />
-                    <div className="card-body">
-                        <h2 className="card-title">{service_name}</h2>
-                        <p>{desc}</p>
-                        <div>
-                            <p>Quality: <span className='text-base font-semibold text-orange-400'>{quality}</span></p>
-                            <p>Rating: <span className='text-base font-semibold text-orange-400'>{rating}</span></p>
-                            <p>Price: <span className='text-base font-semibold text-orange-400'>${price}</span></p>
-                        </div>
-                        <div className="card-actions justify-end">
-                            <button className="btn btn-primary">Book Now</button>
+            <PhotoProvider>
+                <div className='col-span-2 w-full'>
+                    <div className="card w-full bg-base-100 shadow-xl">
+                        <PhotoView src={service_image}><img src={service_image} alt="Shoes" /></PhotoView>
+                        <div className="card-body">
+                            <h2 className="card-title">{service_name}</h2>
+                            <p>{desc}</p>
+                            <div>
+                                <p>Quality: <span className='text-base font-semibold text-orange-400'>{quality}</span></p>
+                                <p>Rating: <span className='text-base font-semibold text-orange-400'>{rating}</span></p>
+                                <p>Price: <span className='text-base font-semibold text-orange-400'>${price}</span></p>
+                            </div>
+                            <div className="card-actions justify-end">
+                                <button className="btn btn-primary">Book Now</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </PhotoProvider>
 
             <div className='col-span-1  h-screen w-full'>
                 <h1 className="text-4xl font-semibold text-gray-600 text-center my-4">Service Review</h1>

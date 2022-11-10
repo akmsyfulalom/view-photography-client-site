@@ -12,16 +12,21 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 const ViewService = () => {
     const [reviews, setReviews] = useState([]);
+
+
     const { user } = useContext(AuthContext);
     console.log('hello', user);
     const viewService = useLoaderData();
-    const { service_name, service_image, desc, price, rating, quality } = viewService
+    const { service_name, service_image, desc, price, rating, quality, _id } = viewService
+    const eachReview = reviews.filter(review => review.id === _id);
 
 
     useEffect(() => {
         fetch('http://localhost:5000/reviews')
             .then(res => res.json())
-            .then(data => setReviews(data))
+            .then(data => {
+                setReviews(data);
+            })
     }, []);
 
     const handleAddReview = (e) => {
@@ -31,7 +36,7 @@ const ViewService = () => {
         const img = e.target.photoUrl.value;
         const title = e.target.title.value;
         const review = e.target.review.value;
-        const userReviews = { name: name, email: email, img: img, title: title, review: review };
+        const userReviews = { name: name, email: email, img: img, title: title, review: review, id: _id };
 
         fetch('http://localhost:5000/reviews', {
             method: 'POST',
@@ -140,7 +145,8 @@ const ViewService = () => {
 
                                 <div className='space-y-10 overflow-y-scroll h-[93vh]'>
                                     {
-                                        reviews.map(review => <Reviews key={review._id} reviews={review} />)
+
+                                        eachReview.map(review => <Reviews key={review._id} reviews={review} />)
                                     }
                                 </div>
 

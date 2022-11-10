@@ -44,19 +44,27 @@ const ViewService = () => {
                                     <span>{user?.displayName ? user?.displayName : 'AKM Syful'}</span>
                                 </div>
                                 {/* Modal */}
-                                <div className=''>
+                                <label htmlFor="my-modal" className="btn btn-primary btn-block btn-sm my-5">Click to type review</label>
 
-                                    <label className='btn btn-sm btn-block btn-primary my-5' htmlFor="my-modal-6">Type Your review here</label>
-                                    <div>
-                                        <input type="checkbox" id="my-modal-6" className="modal-toggle" />
-                                        <div className="modal modal-bottom sm:modal-middle">
-                                            <div className="modal-box">
-                                                <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
-                                                <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                                                <div className="modal-action">
-                                                    <label htmlFor="my-modal-6" className="btn">Yay!</label>
-                                                </div>
-                                            </div>
+
+                                <input type="checkbox" id="my-modal" className="modal-toggle" />
+                                <div className="modal">
+                                    <div className="modal-box">
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Review Title</span>
+                                            </label>
+                                            <input type="text" placeholder="Title" className="input input-bordered" />
+                                        </div>
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Type Your review</span>
+                                            </label>
+                                            <textarea className="textarea textarea-bordered h-24" placeholder="Type Here"></textarea>
+                                        </div>
+
+                                        <div className="modal-action">
+                                            <label htmlFor="my-modal" className="btn">Submit Review</label>
                                         </div>
                                     </div>
                                 </div>

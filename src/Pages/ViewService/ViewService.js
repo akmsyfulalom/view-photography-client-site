@@ -1,19 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { FaUser } from 'react-icons/fa';
+import Reviews from './Reviews';
+import toast from 'react-hot-toast';
 
 
 
 const ViewService = () => {
+    const [reviews, setReviews] = useState([]);
     const { user } = useContext(AuthContext);
     console.log('hello', user);
     const viewService = useLoaderData();
     const { service_name, service_image, desc, price, rating, quality } = viewService
-    console.log(viewService)
+
+
+    useEffect(() => {
+        fetch('http://localhost:5000/reviews')
+            .then(res => res.json())
+            .then(data => setReviews(data))
+    }, []);
+
+    const handleAddReview = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const img = e.target.photoUrl.value;
+        const title = e.target.title.value;
+        const review = e.target.review.value;
+        const userReviews = { name: name, email: email, img: img, title: title, review: review };
+
+        fetch('http://localhost:5000/reviews', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(userReviews)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Reviews added successfully');
+                    e.target.reset();
+                }
+            })
+    }
+
+
+
     return (
-        <div className='container mx-auto grid grid-cols-3 gap-4'>
+        <div className='container mx-auto grid grid-cols-3 gap-4 py-20'>
             <div className='col-span-2 w-full'>
                 <div className="card w-full bg-base-100 shadow-xl">
                     <img src={service_image} alt="Shoes" />
@@ -40,38 +77,76 @@ const ViewService = () => {
                         {
                             user?.uid ? <div>
                                 <div className='flex justify-center items-center space-x-2'>
-                                    {user?.photoURL ? <img src="" alt="" /> : <FaUser />}
+                                    {/* { ? <img src="" alt="" /> : } */}
+                                    {user?.photoURL ? <img className='w-8 h-8 rounded-full' src={user?.photoURL} alt="" />
+                                        : <FaUser />}
                                     <span>{user?.displayName ? user?.displayName : 'AKM Syful'}</span>
                                 </div>
                                 {/* Modal */}
-                                <label htmlFor="my-modal" className="btn btn-primary btn-block btn-sm my-5">Click to type review</label>
+                                <div>
+                                    <label htmlFor="my-modal" className="btn btn-primary btn-block btn-sm my-5">Click to type review</label>
 
 
-                                <input type="checkbox" id="my-modal" className="modal-toggle" />
-                                <div className="modal">
-                                    <div className="modal-box">
-                                        <div className="form-control">
-                                            <label className="label">
-                                                <span className="label-text">Review Title</span>
-                                            </label>
-                                            <input type="text" placeholder="Title" className="input input-bordered" />
-                                        </div>
-                                        <div className="form-control">
-                                            <label className="label">
-                                                <span className="label-text">Type Your review</span>
-                                            </label>
-                                            <textarea className="textarea textarea-bordered h-24" placeholder="Type Here"></textarea>
-                                        </div>
+                                    <input type="checkbox" id="my-modal" className="modal-toggle" />
+                                    <div className="modal">
+                                        <div className="modal-box">
+                                            <label htmlFor="my-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 
-                                        <div className="modal-action">
-                                            <label htmlFor="my-modal" className="btn">Submit Review</label>
+                                            <form onSubmit={handleAddReview}>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <span className="label-text">Your Name</span>
+                                                    </label>
+                                                    <input name='name' value={user?.displayName} type="text" placeholder="Name" className="input input-bordered" />
+                                                </div>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <span className="label-text">Email</span>
+                                                    </label>
+                                                    <input name='email' type="text" placeholder='Email' value={user?.email} className="input input-bordered" />
+                                                </div>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <span className="label-text">Photo URL</span>
+                                                    </label>
+                                                    <input name='photoUrl' value={user?.photoURL} type="text" placeholder='Photo URL' className="input input-bordered" />
+                                                </div>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <span className="label-text">Review Title</span>
+                                                    </label>
+                                                    <input name='title' type="text" placeholder="Title" className="input input-bordered" />
+                                                </div>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <span className="label-text">Type Your review</span>
+                                                    </label>
+                                                    <textarea name='review' className="textarea textarea-bordered h-24" placeholder="Type Here"></textarea>
+                                                </div>
+
+                                                <div className="modal-action">
+                                                    <button type="submit"><label htmlFor="my-modal" className="btn">Submit Review</label></button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
+
+                                {/* Review  */}
+
+                                <div className='space-y-10 overflow-y-scroll h-[93vh]'>
+                                    {
+                                        reviews.map(review => <Reviews key={review._id} reviews={review} />)
+                                    }
+                                </div>
+
+
+
                             </div>
                                 :
-                                <div>
-
+                                <div className='text-center'>
+                                    <h1 className="text-2xl font-semibold text-center">Login First to See Reviews</h1>
+                                    <Link to={'/login'}><button className='btn btn-primary btn-sm my-4'>Login</button></Link>
                                 </div>
                         }
                     </div>

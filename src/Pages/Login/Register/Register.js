@@ -22,6 +22,7 @@ const Register = () => {
         createUser(email, password, displayName, photoURL)
             .then((result) => {
                 const user = result.user;
+                console.log(user)
                 form.reset()
                 toast.success('Successfully Registered')
 

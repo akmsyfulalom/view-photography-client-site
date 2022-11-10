@@ -15,11 +15,11 @@ const Register = () => {
     const handleRegister = (event) => {
         event.preventDefault();
         const form = event.target;
-        const name = form.name.value;
+        const displayName = form.name.value;
         const photoURL = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        createUser(email, password, name, photoURL)
+        createUser(email, password, displayName, photoURL)
             .then((result) => {
                 const user = result.user;
                 form.reset()

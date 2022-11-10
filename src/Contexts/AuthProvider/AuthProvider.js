@@ -23,9 +23,9 @@ const AuthProvider = ({ children }) => {
 
     }, [])
 
-    const createUser = (email, password, name, photoURL) => {
+    const createUser = (email, password, displayName, photoURL) => {
         setLoading(true)
-        return createUserWithEmailAndPassword(auth, email, password, name, photoURL)
+        return createUserWithEmailAndPassword(auth, email, password, displayName, photoURL)
     }
     const userLogin = (email, password) => {
         setLoading(true)

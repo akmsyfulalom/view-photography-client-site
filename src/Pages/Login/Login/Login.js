@@ -21,6 +21,7 @@ const Login = () => {
         userLogin(email, password)
             .then((result) => {
                 const user = result.user;
+                console.log(user);
                 form.reset()
 
                 toast.success('Login Success')
@@ -37,6 +38,7 @@ const Login = () => {
         providerLogin(googleProvider)
             .then((result) => {
                 const user = result.user;
+                console.log(user.uid);
                 toast.success('Login success with Google')
 
                 navigate(from, { replace: true });

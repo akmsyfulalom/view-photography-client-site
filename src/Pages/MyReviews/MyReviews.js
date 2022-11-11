@@ -44,7 +44,7 @@ const MyReviews = () => {
                         <p className='text-base text-gray-500 font-medium leading-2'>{myReview.review}</p>
                     </div>
                     <div className='space-x-3'>
-                        <button className="btn btn-info">Edit</button>
+
                         <button className="btn btn-error" onClick={() => handleDelete(myReview._id)}>Delete</button>
                     </div>
                 </div>

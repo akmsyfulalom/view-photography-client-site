@@ -14,16 +14,6 @@ const Header = () => {
             })
             .then(error => console.log(error));
     }
-    const userProfile = () => {
-        <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn m-1">Click</label>
-            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
-            </ul>
-        </div>
-
-    }
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -36,16 +26,23 @@ const Header = () => {
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/services">Services</Link></li>
                             <li><Link to="/blog">Blog</Link></li>
-                            <li><Link to="/faq">FAQ</Link></li>
+                            {
+                                user && <>
+                                    <li><Link to="/myreviews">My Reviews</Link></li>
+                                    <li><Link to="/addservice">Add Service</Link></li>
+                                </>
+
+                            }
+
                         </ul>
                     </div>
-                    <Link to="/" className="btn btn-ghost normal-case text-xl">View Photography</Link>
+                    <Link to="/" className="btn btn-ghost normal-case lg:text-xl md:text-xl sm:text-sm">View Photography</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/services">Services</Link></li>
-                        {/*  */}
+                        <li><Link to="/blog">Blog</Link></li>
                         {
                             user && <>
                                 <li><Link to="/myreviews">My Reviews</Link></li>
@@ -53,8 +50,8 @@ const Header = () => {
                             </>
 
                         }
-                        <li><Link to="/blog">Blog</Link></li>
-                        <li><Link to="/faq">FAQ</Link></li>
+
+
                     </ul>
                 </div>
                 {
@@ -63,8 +60,8 @@ const Header = () => {
 
                         {
                             user?.photoURL ? <>
-                                <button onClick={userProfile}> <img className='w-8 h-8 rounded-full' src={user?.photoURL} alt="" />
-                                </button>
+                                <img className='w-8 h-8 rounded-full' src={user?.photoURL} alt="" />
+
                             </>
                                 :
                                 <>

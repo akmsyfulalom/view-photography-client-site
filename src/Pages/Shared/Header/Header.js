@@ -49,7 +49,7 @@ const Header = () => {
                         {
                             user && <>
                                 <li><Link to="/myreviews">My Reviews</Link></li>
-                                <li><Link to="/myreviews">Add Service</Link></li>
+                                <li><Link to="/addservice">Add Service</Link></li>
                             </>
 
                         }

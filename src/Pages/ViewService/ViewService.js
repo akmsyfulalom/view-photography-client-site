@@ -89,7 +89,7 @@ const ViewService = () => {
                                     {/* { ? <img src="" alt="" /> : } */}
                                     {user?.photoURL ? <img className='w-8 h-8 rounded-full' src={user?.photoURL} alt="" />
                                         : <FaUser />}
-                                    <span>{user?.displayName ? user?.displayName : 'AKM Syful'}</span>
+                                    <span>{user?.displayName ? user?.displayName : 'Name'}</span>
                                 </div>
                                 {/* Modal */}
                                 <div>

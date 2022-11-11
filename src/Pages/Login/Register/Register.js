@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
+import useTitle from '../../../Hooks/Hooks';
 
 
 
 
 
 const Register = () => {
+    useTitle('Register')
     const { createUser } = useContext(AuthContext)
 
 

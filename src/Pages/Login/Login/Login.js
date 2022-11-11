@@ -4,9 +4,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from "firebase/auth";
+import useTitle from "../../../Hooks/Hooks";
 
 
 const Login = () => {
+    useTitle('Login')
     const { userLogin, providerLogin } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation();

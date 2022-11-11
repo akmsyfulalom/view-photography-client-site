@@ -1,10 +1,12 @@
 import React from 'react';
 import toast from 'react-hot-toast';
+import useTitle from '../../Hooks/Hooks';
 
 
 const AddService = () => {
 
 
+    useTitle('Add Service')
 
 
     const handleServiceAdd = (e) => {
@@ -47,7 +49,7 @@ const AddService = () => {
     return (
         <div className='bg-base-200'>
             <h1 className="text-4xl font-bold text-center pt-20 ">Add a service</h1>
-            <div className='py-1'> < hr /></div>
+            <div className='container mx-auto py-1 my-10'> < hr /></div>
             <div className="hero min-h-screen bg-base-200">
 
                 <div className="card flex-shrink-0 w-full max-w-3xl shadow-2xl bg-base-100">

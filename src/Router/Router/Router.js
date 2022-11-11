@@ -17,11 +17,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/', element: <Home></Home>,
-                loader: () => fetch('http://localhost:5000/services')
+                loader: () => fetch('https://view-photography-server.vercel.app/services')
             },
             {
                 path: '/services', element: <Services></Services>,
-                loader: () => fetch('http://localhost:5000/allServices')
+                loader: () => fetch('https://view-photography-server.vercel.app/allServices')
             },
             {
                 path: '/blog', element: <Blog></Blog>
@@ -35,15 +35,16 @@ export const router = createBrowserRouter([
             {
                 path: '/service/:id',
                 element: <ViewService></ViewService>,
-                loader: ({ params }) => fetch(`http://localhost:5000/service/${params.id}`)
+                loader: ({ params }) => fetch(`https://view-photography-server.vercel.app/service/${params.id}`)
             },
             {
                 path: '/myreviews',
-                element: <PrivateRoute><MyReviews /></PrivateRoute>
+                element: <PrivateRoute><MyReviews /></PrivateRoute>,
+
             },
             {
                 path: '/addservice',
-                element: <AddService></AddService>
+                element: <PrivateRoute><AddService></AddService></PrivateRoute>
             }
 
 

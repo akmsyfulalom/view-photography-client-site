@@ -2,14 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import useTitle from '../../Hooks/Hooks';
+import { serviceContext } from '../ViewService/ViewService';
 
 const MyReviews = () => {
     const { user } = useContext(AuthContext);
+    // const { viewService } = useContext(serviceContext)
+    // console.log(viewService);
     const [myReviews, setMyReviews] = useState([]);
+    // ono service re ano
     useTitle('My Reviews')
-    // console.log(myReviews)
     useEffect(() => {
-        fetch(`http://localhost:5000/myreviews?email=${user?.email}`)
+        fetch(`https://view-photography-server.vercel.app/myreviews?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setMyReviews(data));
     }, [user?.email]);
@@ -18,7 +21,7 @@ const MyReviews = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to cancel this order');
         if (proceed) {
-            fetch(`http://localhost:5000/review/${id}`, {
+            fetch(`https://view-photography-server.vercel.app/review/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -37,7 +40,7 @@ const MyReviews = () => {
 
         <div>
             {
-                user?.myReviews ? <>
+                myReviews.length > 0 ? <>
                     <div className='container mx-auto space-y-10'>
                         {myReviews.map(myReview => <div className="card w-[70%] mx-auto bg-base-100 shadow-xl">
                             <div className="card-body">
@@ -47,6 +50,7 @@ const MyReviews = () => {
                                 </div>
                                 <div className='h-[2px] w-full bg-gray-300 rounded-md'></div>
                                 <div className='space-y-2'>
+                                    <span className='text-md font-semibold block'>Service Name: {myReview.service_name}</span>
                                     <span className='text-sm font-semibold'>{myReview.title}</span>
                                     <p className='text-base text-gray-500 font-medium leading-2'>{myReview.review}</p>
                                 </div>

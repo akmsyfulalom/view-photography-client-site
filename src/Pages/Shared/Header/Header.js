@@ -55,7 +55,7 @@ const Header = () => {
                     </ul>
                 </div>
                 {
-                    user?.uid ? <>
+                    user?.uid ? <div className='navbar-end'>
                         <button onClick={handleLogOut} className="btn btn-ghost">Log Out</button>
 
                         {
@@ -69,7 +69,7 @@ const Header = () => {
                                 </>
                         }
 
-                    </>
+                    </div>
                         :
                         <>
                             <div className="navbar-end">

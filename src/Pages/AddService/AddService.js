@@ -28,7 +28,7 @@ const AddService = () => {
             rating: rating
         }
 
-        fetch('http://localhost:5000/services', {
+        fetch('https://view-photography-server.vercel.app/services', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -48,7 +48,8 @@ const AddService = () => {
 
     return (
         <div className='bg-base-200'>
-            <h1 className="text-4xl font-bold text-center pt-20 ">Add a service</h1>
+            <h1 className="text-4xl text-red-200 font-bold text-center pt-20 ">Add a service</h1>
+            <p className='text-xl font-bold my-5 text-center'>View Photographer</p>
             <div className='container mx-auto py-1 my-10'> < hr /></div>
             <div className="hero min-h-screen bg-base-200">
 
@@ -76,7 +77,7 @@ const AddService = () => {
                                 <label className="label">
                                     <span className="label-text">Service image</span>
                                 </label>
-                                <input name='photo' type="text" placeholder="service image" className="input input-bordered" required />
+                                <input name='photo' type="text" placeholder="Image URL" className="input input-bordered" required />
                             </div>
                             <div className='lg:flex lg:space-x-5'>
                                 <div className="form-control w-full">
